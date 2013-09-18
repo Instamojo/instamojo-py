@@ -1,11 +1,26 @@
-class API:
-    token = None
+import json
+import requests
 
-    def __init__(self, token=None):
+class API:
+    app_id = None
+    token = None
+    endpoint = None
+
+    def __init__(self, app_id, token=None, endpoint=None):
+        self.app_id = app_id
         self.token = token
+        self.endpoint = endpoint
+
+    def debug(self):
+        return self._api_call('get', 'debug/')
 
     def auth(self, username, password):
-        raise NotImplementedError('Whoops!')
+        response = self._api_call(method='post', path='auth/', username=username, password=password)
+        if response['success']:
+            self.token = response['token']
+            return self.token
+        else:
+            raise Exception(response['message']) # TODO: set custom exception?
 
     def offer_list(self):
         raise NotImplementedError('Dang!')
