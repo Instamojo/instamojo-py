@@ -129,12 +129,12 @@ class API:
 
     def _get_file_upload_url(self):
         """Gets signed upload URL from server, use this to upload file."""
-        response = self.api_request(method='GET', path='offer/get_file_upload_url/')
+        response = self._api_call(method='GET', path='offer/get_file_upload_url/')
         return response
 
     def _upload_file(self, filepath):
         """Helper function to upload file from local path."""
-        file_upload_url = self._get_file_upload_url()
+        file_upload_url = self._get_file_upload_url()['upload_url']
 
         filename = os.path.basename(filepath)
         files = {'fileUpload':(filename, open(filepath, 'rb'))}
