@@ -1,3 +1,4 @@
+import os
 import json
 import requests
 
@@ -23,10 +24,12 @@ class API:
             raise Exception(response['message']) # TODO: set custom exception?
 
     def offer_list(self):
-        raise NotImplementedError('Dang!')
+        response = self._api_call(method='get', path='offer')
+        return response
 
     def offer_detail(self, slug):
-        raise NotImplementedError('Shite!')
+        response = self._api_call(method='get', path='offer/%s/' % slug)
+        return response
 
     def offer_create(self, title, description=None, # Basic
                      base_price=None, currency=None, # Pricing
@@ -37,7 +40,34 @@ class API:
                      upload_file=None, # File to upload
                      cover_image=None, # Cover image to associate with offer
                      ):
-        raise NotImplementedError('Yikes!')
+
+        if upload_file:
+            file_upload_json = self._upload_file(upload_file)
+        else:
+            file_upload_json = None
+
+        if cover_image:
+            cover_image_json = self._upload_file(cover_image)
+        else:
+            cover_image_json = None
+
+        offer_data = dict(
+            title=title,
+            description=description,
+            base_price=base_price,
+            currency=currency,
+            quantity=quantity,
+            start_date=start_date,
+            end_date=end_date,
+            venue=venue,
+            timezone=timezone,
+            redirect_url=redirect_url,
+            note=note,
+            file_upload_json=file_upload_json,
+            cover_image_json=cover_image_json,
+        )
+        response = self._api_call(method='post', path='offer/', **offer_data)
+        return response
 
     def offer_edit(self, slug, # Need slug to identify offer
                      title=None, description=None, # Basic
@@ -52,8 +82,8 @@ class API:
         raise NotImplementedError('Uh oh!')
 
     def offer_delete(self, slug):
-        raise NotImplementedError('Shucks!')
-
+        response = self._api_call(method='delete', path='offer/%s/' % slug)
+        return response
 
     def _api_call(self, method, path, **kwargs):
         # Header: App-Id
@@ -83,3 +113,21 @@ class API:
             return json.loads(req.text)
         except:
             raise Exception('Unable to decode response. Expected JSON, got this: \n\n\n %s' % req.text)
+
+    def _get_file_upload_url(self):
+        """
+        Gets signed upload URL from server, use this to upload file.
+        """
+        response = self.api_request(method='GET', path='offer/get_file_upload_url/')
+        return response
+
+    def _upload_file(self, filepath):
+        """
+        Helper function to upload file from local path.
+        """
+        file_upload_url = self._get_file_upload_url()
+
+        filename = os.path.basename(filepath)
+        files = {'fileUpload':(filename, open(filepath, 'rb'))}
+        response = requests.post(file_upload_url, files=files)
+        return response.text
