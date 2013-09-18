@@ -41,4 +41,30 @@ class API:
 
 
     def _api_call(self, method, path, **kwargs):
-        raise NotImplementedError('Aw crap!')
+        # Header: App-Id
+        headers = {'X-App-Id': self.app_id}
+
+        # If available, add the Auth-token to header
+        if self.token:
+            headers.update({'X-Auth-Token':self.token})
+
+        # Build the URL for API call
+        api_path = self.endpoint + path
+
+        if method.upper() == 'GET':
+            req = requests.get(api_path, data=kwargs, headers=headers)
+        elif method.upper() == 'POST':
+            req = requests.post(api_path, data=kwargs, headers=headers)
+        elif method.upper() == 'DELETE':
+            req = requests.delete(api_path, data=kwargs, headers=headers)
+        elif method.upper() == 'PUT':
+            req = requests.put(api_path, data=kwargs, headers=headers)
+        elif method.upper() == 'PATCH':
+            req = requests.patch(api_path, data=kwargs, headers=headers)
+        else:
+            raise Exception('Unable to make a API call for "%s" method.' % method)
+
+        try:
+            return json.loads(req.text)
+        except:
+            raise Exception('Unable to decode response. Expected JSON, got this: \n\n\n %s' % req.text)
