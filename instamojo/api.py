@@ -114,11 +114,12 @@ class API:
         if api_path[-1] is not '/':
             api_path += '/'
 
-        if method.lower() not in ['get', 'post', 'delete', 'put', 'patch']:
+        method = method.lower()
+        if method not in ['get', 'post', 'delete', 'put', 'patch']:
             raise Exception('Unable to make a API call for "%s" method.' % method)
 
         # Picks up the right function to call (such as requests.get() for 'get')
-        api_call = getattr(requests, method.lower())
+        api_call = getattr(requests, method)
         req = api_call(api_path, data=kwargs, headers=headers)
 
         try:
