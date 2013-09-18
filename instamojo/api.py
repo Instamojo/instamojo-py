@@ -42,15 +42,8 @@ class API:
                      cover_image=None, # Cover image to associate with offer
                      ):
 
-        if upload_file:
-            file_upload_json = self._upload_file(upload_file)
-        else:
-            file_upload_json = None
-
-        if cover_image:
-            cover_image_json = self._upload_file(cover_image)
-        else:
-            cover_image_json = None
+        file_upload_json = self._upload_if_needed(upload_file)
+        cover_image_json = self._upload_if_needed(cover_image)
 
         offer_data = dict(
             title=title,
@@ -81,15 +74,8 @@ class API:
                      cover_image=None, # Cover image to associate with offer
                      ):
         """Only include the parameters that you wish to change."""
-        if upload_file:
-            file_upload_json = self._upload_file(upload_file)
-        else:
-            file_upload_json = None
-
-        if cover_image:
-            cover_image_json = self._upload_file(cover_image)
-        else:
-            cover_image_json = None
+        file_upload_json = self._upload_if_needed(upload_file)
+        cover_image_json = self._upload_if_needed(cover_image)
 
         offer_data = dict(
             title=title,
@@ -128,18 +114,12 @@ class API:
         if api_path[-1] is not '/':
             api_path += '/'
 
-        if method.upper() == 'GET':
-            req = requests.get(api_path, data=kwargs, headers=headers)
-        elif method.upper() == 'POST':
-            req = requests.post(api_path, data=kwargs, headers=headers)
-        elif method.upper() == 'DELETE':
-            req = requests.delete(api_path, data=kwargs, headers=headers)
-        elif method.upper() == 'PUT':
-            req = requests.put(api_path, data=kwargs, headers=headers)
-        elif method.upper() == 'PATCH':
-            req = requests.patch(api_path, data=kwargs, headers=headers)
-        else:
+        if method.lower() not in ['get', 'post', 'delete', 'put', 'patch']:
             raise Exception('Unable to make a API call for "%s" method.' % method)
+
+        # Picks up the right function to call (such as requests.get() for 'get')
+        api_call = getattr(requests, method.lower())
+        req = api_call(api_path, data=kwargs, headers=headers)
 
         try:
             return json.loads(req.text)
@@ -147,19 +127,21 @@ class API:
             raise Exception('Unable to decode response. Expected JSON, got this: \n\n\n %s' % req.text)
 
     def _get_file_upload_url(self):
-        """
-        Gets signed upload URL from server, use this to upload file.
-        """
+        """Gets signed upload URL from server, use this to upload file."""
         response = self.api_request(method='GET', path='offer/get_file_upload_url/')
         return response
 
     def _upload_file(self, filepath):
-        """
-        Helper function to upload file from local path.
-        """
+        """Helper function to upload file from local path."""
         file_upload_url = self._get_file_upload_url()
 
         filename = os.path.basename(filepath)
         files = {'fileUpload':(filename, open(filepath, 'rb'))}
         response = requests.post(file_upload_url, files=files)
         return response.text
+
+    def _upload_if_needed(self, filepath):
+        """If a file is found, uploads it and returns json, else returns None"""
+        if filepath:
+            return self._upload_file(filepath)
+        return None # Doesn't harm being explicit.
