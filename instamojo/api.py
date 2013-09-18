@@ -31,8 +31,9 @@ class API:
         response = self._api_call(method='get', path='offer/%s/' % slug)
         return response
 
-    def offer_create(self, title, description=None, # Basic
-                     base_price=None, currency=None, # Pricing
+    def offer_create(self, title, # Title is not optional
+                     base_price, currency, # Pricing, is compulsory.
+                     description=None, # Basic
                      quantity=None, # Quantity
                      start_date=None, end_date=None, venue=None, timezone=None, # Event
                      redirect_url=None, # Redirect user to URL after successful payment
