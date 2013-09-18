@@ -79,7 +79,34 @@ class API:
                      upload_file=None, # File to upload
                      cover_image=None, # Cover image to associate with offer
                      ):
-        raise NotImplementedError('Uh oh!')
+        """Only include the parameters that you wish to change."""
+        if upload_file:
+            file_upload_json = self._upload_file(upload_file)
+        else:
+            file_upload_json = None
+
+        if cover_image:
+            cover_image_json = self._upload_file(cover_image)
+        else:
+            cover_image_json = None
+
+        offer_data = dict(
+            title=title,
+            description=description,
+            base_price=base_price,
+            currency=currency,
+            quantity=quantity,
+            start_date=start_date,
+            end_date=end_date,
+            venue=venue,
+            timezone=timezone,
+            redirect_url=redirect_url,
+            note=note,
+            file_upload_json=file_upload_json,
+            cover_image_json=cover_image_json,
+        )
+        response = self._api_call(method='patch', path='offer/%s/' % slug, **offer_data)
+        return response
 
     def offer_delete(self, slug):
         response = self._api_call(method='delete', path='offer/%s/' % slug)
@@ -95,6 +122,10 @@ class API:
 
         # Build the URL for API call
         api_path = self.endpoint + path
+
+        # One last sanity check
+        if api_path[-1] is not '/':
+            api_path += '/'
 
         if method.upper() == 'GET':
             req = requests.get(api_path, data=kwargs, headers=headers)
