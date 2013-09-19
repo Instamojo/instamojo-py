@@ -2,12 +2,12 @@ import os
 import json
 import requests
 
-class API:
+class Instamojo:
     app_id = None
     token = None
     endpoint = None
 
-    def __init__(self, app_id, token=None, endpoint=None):
+    def __init__(self, app_id, token=None, endpoint='https://www.instamojo.com/api/1/'):
         self.app_id = app_id
         self.token = token
         self.endpoint = endpoint
