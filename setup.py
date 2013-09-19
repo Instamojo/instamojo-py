@@ -24,7 +24,7 @@ setup(
     name='instamojo',
     version=instamojo.__version__,
     description='Instamojo API Wrapper.',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     author='Instamojo Developers',
     author_email='dev@instamojo.com',
     url='https://www.instamojo.com/developers/',
