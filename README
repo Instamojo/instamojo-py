@@ -10,17 +10,15 @@ If you download source, run `python setup.py install` or you can run
 
 ## Usage
 
-    from instamojo import API
-    api = API(app_id='email api@instamojo.com for app-id',
-              endpoint='https://www.instamojo.com/api/1/')
+    from instamojo import Instamojo
+    api = Instamojo(app_id='email api@instamojo.com for app-id')
     token = api.auth(username='USERNAME', password='PASSWORD')
 
 You should save this `token` somewhere for reusing in all subsequent calls.
 
-    from instamojo import API
-    api = API(app_id='email api@instamojo.com for app-id',
-              token='token-you-got-from-auth-call',
-              endpoint='https://www.instamojo.com/api/1/')
+    from instamojo import Instamojo
+    api = Instamojo(app_id='email api@instamojo.com for app-id',
+              token='token-you-got-from-auth-call')
     api.offer_list()
 
     print api.offer_create(title='Hello, world!', base_price=0, currency='INR')
