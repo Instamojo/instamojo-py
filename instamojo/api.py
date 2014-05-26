@@ -37,6 +37,7 @@ class Instamojo:
                      quantity=None, # Quantity
                      start_date=None, end_date=None, venue=None, timezone=None, # Event
                      redirect_url=None, # Redirect user to URL after successful payment
+                     webhook_url=None, # Ping your server with offer data after successful payment 
                      note=None, # Show note, embed in receipt after successful payment
                      upload_file=None, # File to upload
                      cover_image=None, # Cover image to associate with offer
@@ -56,6 +57,7 @@ class Instamojo:
             venue=venue,
             timezone=timezone,
             redirect_url=redirect_url,
+            webhook_url=webhook_url,
             note=note,
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
@@ -69,6 +71,7 @@ class Instamojo:
                      quantity=None, # Quantity
                      start_date=None, end_date=None, venue=None, timezone=None, # Event
                      redirect_url=None, # Redirect user to URL after successful payment
+                     webhook_url=None, # Ping your server with offer data after successful payment 
                      note=None, # Show note, embed in receipt after successful payment
                      upload_file=None, # File to upload
                      cover_image=None, # Cover image to associate with offer
@@ -88,6 +91,7 @@ class Instamojo:
             venue=venue,
             timezone=timezone,
             redirect_url=redirect_url,
+            webhook_url=webhook_url,
             note=note,
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
