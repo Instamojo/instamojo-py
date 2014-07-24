@@ -28,7 +28,7 @@ This will give you JSON object containing details of the offer that was just cre
 You have these functions to interact with the API:
  * `debug()`
  * `auth(username, password)`
- * `offer_create(title, base_price, currency)`
+ * `offer_create(title, description, base_price, currency)`
  * `offer_edit(slug)`
  * `offer_delete(slug)`
 
