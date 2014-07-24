@@ -127,7 +127,7 @@ class Instamojo:
         req = api_call(api_path, data=kwargs, headers=headers)
 
         try:
-            return json.loads(req.text)
+            return req.json()
         except:
             raise Exception('Unable to decode response. Expected JSON, got this: \n\n\n %s' % req.text)
 
