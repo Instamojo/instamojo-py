@@ -32,9 +32,8 @@ You have these functions to interact with the API:
  * `offer_edit(slug)`
  * `offer_delete(slug)`
 
-For `offer_create`, `title`, `base_price` and `currency` are the bare minimum
-pieces of information that is required. You can (and should) as much relevant information
-as possible.
+When calling `offer_create`, ensure `title`, `description`, `base_price` and `currency` are
+provided. You can (and should) add as much relevant information as possible.
 
  * `title` A brief title that describes the offer.
  * `base_price` Price at which you wish to sell the offer.
