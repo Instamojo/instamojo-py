@@ -21,7 +21,7 @@ You should save this `token` somewhere for reusing in all subsequent calls.
               token='token-you-got-from-auth-call')
     api.offer_list()
 
-    print api.offer_create(title='Hello, world!', base_price=0, currency='INR')
+    print api.offer_create(title='Hello, world!', description='Well, hello again.', base_price=0, currency='INR')
 
 This will give you JSON object containing details of the offer that was just created.
 
