@@ -7,9 +7,9 @@ class Instamojo:
     token = None
     endpoint = None
 
-    def __init__(self, app_id, token=None, endpoint='https://www.instamojo.com/api/1/'):
-        self.app_id = app_id
-        self.token = token
+    def __init__(self, api_key, auth_token=None, endpoint='https://www.instamojo.com/api/1.1/'):
+        self.api_key = api_key
+        self.auth_token = auth_token
         self.endpoint = endpoint
 
     def debug(self):
@@ -24,16 +24,17 @@ class Instamojo:
             raise Exception(response['message']) # TODO: set custom exception?
 
     def offer_list(self):
-        response = self._api_call(method='get', path='offer')
+        response = self._api_call(method='get', path='links')
         return response
 
     def offer_detail(self, slug):
-        response = self._api_call(method='get', path='offer/%s/' % slug)
+        response = self._api_call(method='get', path='links/%s/' % slug)
         return response
 
-    def offer_create(self, title, # Title is not optional
-                     base_price, currency, # Pricing, is compulsory.
-                     description=None, # Basic
+    def offer_create(self, title=None, # Title is not optional
+                     description=None, # Description is not optional
+                     base_price=None,
+                     currency=None, # Pricing, is compulsory.
                      quantity=None, # Quantity
                      start_date=None, end_date=None, venue=None, timezone=None, # Event
                      redirect_url=None, # Redirect user to URL after successful payment
@@ -62,7 +63,7 @@ class Instamojo:
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
         )
-        response = self._api_call(method='post', path='offer/', **offer_data)
+        response = self._api_call(method='post', path='links/', **offer_data)
         return response
 
     def offer_edit(self, slug, # Need slug to identify offer
@@ -96,20 +97,20 @@ class Instamojo:
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
         )
-        response = self._api_call(method='patch', path='offer/%s/' % slug, **offer_data)
+        response = self._api_call(method='patch', path='links/%s/' % slug, **offer_data)
         return response
 
     def offer_delete(self, slug):
-        response = self._api_call(method='delete', path='offer/%s/' % slug)
+        response = self._api_call(method='delete', path='links/%s/' % slug)
         return response
 
     def _api_call(self, method, path, **kwargs):
         # Header: App-Id
-        headers = {'X-App-Id': self.app_id}
+        headers = {'X-Api-Key': self.api_key}
 
         # If available, add the Auth-token to header
-        if self.token:
-            headers.update({'X-Auth-Token':self.token})
+        if self.auth_token:
+            headers.update({'X-Auth-Token':self.auth_token})
 
         # Build the URL for API call
         api_path = self.endpoint + path
