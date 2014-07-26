@@ -108,8 +108,8 @@ class Instamojo:
         response = self._api_call(method='get', path='payments')
         return response
 
-    def payment_detail(self, slug):
-        response = self._api_call(method='get', path='payments/%s/' % slug)
+    def payment_detail(self, payment_id):
+        response = self._api_call(method='get', path='payments/%s/' % payment_id)
         return response
 
 
