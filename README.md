@@ -1,6 +1,6 @@
 # Instamojo API
 
-Assists you to programmatically create, edit and delete offers on Instamojo.
+Assists you to programmatically create, edit and delete links on Instamojo.
 
 ## Installation
 
@@ -23,7 +23,7 @@ You should save this `token` somewhere for reusing in all subsequent calls.
 
     print api.link_create(title='Hello, world!', description='Well, hello again.', base_price=0, currency='INR')
 
-This will give you JSON object containing details of the offer that was just created.
+This will give you JSON object containing details of the link that was just created.
 
 ## Payments API and Webhook/Redirect
 
