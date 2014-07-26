@@ -36,13 +36,12 @@ This will return a Payment object with details of the transaction.
 You have these functions to interact with the API:
  * `debug()`
  * `auth(username, password)`
- * `links_list()`
- * `link_detail()`
- * `link_create(title, description, base_price, currency)`
- * `link_edit(slug)`
- * `link_delete(slug)`
- * `payments_list()`
- * `payment_detail()`
-
+ * `links_list()` => list of Links
+ * `link_detail(slug)` => Link
+ * `link_create(title, description, base_price, currency)` => Link
+ * `link_edit(slug)` => Link
+ * `link_delete(slug)` => No Data
+ * `payments_list()` => List of Payments
+ * `payment_detail(payment_id)` => Payment
 
 Further documentation is available at https://www.instamojo.com/api/1.1/docs/
