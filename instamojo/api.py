@@ -104,6 +104,15 @@ class Instamojo:
         response = self._api_call(method='delete', path='links/%s/' % slug)
         return response
 
+    def payments_list(self):
+        response = self._api_call(method='get', path='payments')
+        return response
+
+    def payment_detail(self, slug):
+        response = self._api_call(method='get', path='payments/%s/' % slug)
+        return response
+
+
     def _api_call(self, method, path, **kwargs):
         # Header: App-Id
         headers = {'X-Api-Key': self.api_key}
