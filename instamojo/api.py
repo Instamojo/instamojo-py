@@ -23,31 +23,31 @@ class Instamojo:
         else:
             raise Exception(response['message']) # TODO: set custom exception?
 
-    def offer_list(self):
+    def links_list(self):
         response = self._api_call(method='get', path='links')
         return response
 
-    def offer_detail(self, slug):
+    def link_detail(self, slug):
         response = self._api_call(method='get', path='links/%s/' % slug)
         return response
 
-    def offer_create(self, title=None, # Title is not optional
+    def link_create(self, title=None, # Title is not optional
                      description=None, # Description is not optional
                      base_price=None,
                      currency=None, # Pricing, is compulsory.
                      quantity=None, # Quantity
                      start_date=None, end_date=None, venue=None, timezone=None, # Event
                      redirect_url=None, # Redirect user to URL after successful payment
-                     webhook_url=None, # Ping your server with offer data after successful payment 
+                     webhook_url=None, # Ping your server with link data after successful payment
                      note=None, # Show note, embed in receipt after successful payment
                      upload_file=None, # File to upload
-                     cover_image=None, # Cover image to associate with offer
+                     cover_image=None, # Cover image to associate with link
                      ):
 
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
 
-        offer_data = dict(
+        link_data = dict(
             title=title,
             description=description,
             base_price=base_price,
@@ -63,25 +63,25 @@ class Instamojo:
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
         )
-        response = self._api_call(method='post', path='links/', **offer_data)
+        response = self._api_call(method='post', path='links/', **link_data)
         return response
 
-    def offer_edit(self, slug, # Need slug to identify offer
+    def link_edit(self, slug, # Need slug to identify link
                      title=None, description=None, # Basic
                      base_price=None, currency=None, # Pricing
                      quantity=None, # Quantity
                      start_date=None, end_date=None, venue=None, timezone=None, # Event
                      redirect_url=None, # Redirect user to URL after successful payment
-                     webhook_url=None, # Ping your server with offer data after successful payment 
+                     webhook_url=None, # Ping your server with link data after successful payment
                      note=None, # Show note, embed in receipt after successful payment
                      upload_file=None, # File to upload
-                     cover_image=None, # Cover image to associate with offer
+                     cover_image=None, # Cover image to associate with link
                      ):
         """Only include the parameters that you wish to change."""
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
 
-        offer_data = dict(
+        link_data = dict(
             title=title,
             description=description,
             base_price=base_price,
@@ -97,10 +97,10 @@ class Instamojo:
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
         )
-        response = self._api_call(method='patch', path='links/%s/' % slug, **offer_data)
+        response = self._api_call(method='patch', path='links/%s/' % slug, **link_data)
         return response
 
-    def offer_delete(self, slug):
+    def link_delete(self, slug):
         response = self._api_call(method='delete', path='links/%s/' % slug)
         return response
 
@@ -134,7 +134,7 @@ class Instamojo:
 
     def _get_file_upload_url(self):
         """Gets signed upload URL from server, use this to upload file."""
-        response = self._api_call(method='GET', path='offer/get_file_upload_url/')
+        response = self._api_call(method='GET', path='links/get_file_upload_url/')
         return response
 
     def _upload_file(self, filepath):
