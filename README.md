@@ -7,21 +7,31 @@ Assists you to programmatically create, edit and delete links on Instamojo.
 [Download the source code](https://github.com/Instamojo/instamojo-py/archive/master.zip),
 run `python setup.py install` to install the library.
 
+## Authentication Keys
+
+You can find your API_KEY and AUTH_TOKEN at the API Documentation Page.
+Create an account on Instamojo, log in and visit this link:
+https://www.instamojo.com/api/1.1/docs/
 
 ## Usage
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='email api@instamojo.com for api_key')
-    token = api.auth(username='USERNAME', password='PASSWORD')
+    api = Instamojo(api_key='[API_KEY]',
+                    auth_token='[AUTH_TOKEN]')
 
-You should save this `token` somewhere for reusing in all subsequent calls.
+    # Get a list of all Links that you have created and display their slugs.
+    response = api.links_list()
+    for link in response['links']
+        print link['slug']
 
-    from instamojo import Instamojo
-    api = Instamojo(api_key='email api@instamojo.com for api_key',
-              token='token-you-got-from-auth-call')
-    api.links_list()
+    # Create a new Link
+    response = api.link_create(title='Hello, world!',
+                               description='Well, hello again.',
+                               base_price=0,
+                               currency='INR')
 
-    print api.link_create(title='Hello, world!', description='Well, hello again.', base_price=0, currency='INR')
+    # Display the URL of the newly created Link
+    print response['link']
 
 This will give you JSON object containing details of the link that was just created.
 
