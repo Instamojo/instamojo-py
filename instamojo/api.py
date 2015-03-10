@@ -24,7 +24,7 @@ class Instamojo:
             raise Exception(response['message']) # TODO: set custom exception?
 
     def links_list(self):
-        response = self._api_call(method='get', path='links')
+        response = self._api_call(method='get', path='links/')
         return response
 
     def link_detail(self, slug):
@@ -113,7 +113,7 @@ class Instamojo:
         return response
 
     def payments_list(self):
-        response = self._api_call(method='get', path='payments')
+        response = self._api_call(method='get', path='payments/')
         return response
 
     def payment_detail(self, payment_id):
