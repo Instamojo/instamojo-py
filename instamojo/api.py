@@ -133,7 +133,7 @@ class Instamojo:
         api_path = self.endpoint + path
 
         # One last sanity check
-        if api_path[-1] is not '/':
+        if not api_path.endswith('/'):
             api_path += '/'
 
         method = method.lower()
