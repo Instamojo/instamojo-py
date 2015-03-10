@@ -13,7 +13,7 @@ class Instamojo:
         self.endpoint = endpoint
 
     def debug(self):
-        return self._api_call('get', 'debug/')
+        return self._api_call(method='get', path='debug/')
 
     def auth(self, username, password):
         response = self._api_call(method='post', path='auth/', username=username, password=password)
