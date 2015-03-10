@@ -4,7 +4,7 @@ import requests
 
 class Instamojo:
     app_id = None
-    token = None
+    auth_token = None
     endpoint = None
 
     def __init__(self, api_key, auth_token=None, endpoint='https://www.instamojo.com/api/1.1/'):
@@ -18,8 +18,8 @@ class Instamojo:
     def auth(self, username, password):
         response = self._api_call(method='post', path='auth/', username=username, password=password)
         if response['success']:
-            self.token = response['token']
-            return self.token
+            self.auth_token = response['token']
+            return self.auth_token
         else:
             raise Exception(response['message']) # TODO: set custom exception?
 
