@@ -21,7 +21,7 @@ https://www.instamojo.com/api/1.1/docs/
 
     # Get a list of all Links that you have created and display their slugs.
     response = api.links_list()
-    for link in response['links']
+    for link in response['links']:
         print link['slug']
 
     # Create a new Link
