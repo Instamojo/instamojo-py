@@ -138,7 +138,7 @@ class Instamojo:
 
         method = method.lower()
         if method not in ['get', 'post', 'delete', 'put', 'patch']:
-            raise Exception('Unable to make a API call for "%s" method.' % method)
+            raise Exception('Unable to make a API call for %r method.' % method)
 
         # Picks up the right function to call (such as requests.get() for 'get')
         api_call = getattr(requests, method)
