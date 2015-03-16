@@ -20,7 +20,7 @@ class Instamojo(object):
         response = self._api_call(method='post', path='auth/',
                                   username=username, password=password)
         if response['success']:
-            self.auth_token = response['token']
+            self.auth_token = response['auth_token']['auth_token']
             return self.auth_token
         else:
             raise Exception(response['message'])  # TODO: set custom exception?
