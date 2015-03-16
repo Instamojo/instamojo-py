@@ -1,5 +1,4 @@
 import os
-import json
 import requests
 
 
@@ -8,7 +7,8 @@ class Instamojo(object):
     token = None
     endpoint = None
 
-    def __init__(self, api_key, auth_token=None, endpoint='https://www.instamojo.com/api/1.1/'):
+    def __init__(self, api_key, auth_token=None,
+                 endpoint='https://www.instamojo.com/api/1.1/'):
         self.api_key = api_key
         self.auth_token = auth_token
         self.endpoint = endpoint
@@ -17,12 +17,13 @@ class Instamojo(object):
         return self._api_call(method='get', path='debug/')
 
     def auth(self, username, password):
-        response = self._api_call(method='post', path='auth/', username=username, password=password)
+        response = self._api_call(method='post', path='auth/',
+                                  username=username, password=password)
         if response['success']:
             self.token = response['token']
             return self.token
         else:
-            raise Exception(response['message']) # TODO: set custom exception?
+            raise Exception(response['message'])  # TODO: set custom exception?
 
     def links_list(self):
         response = self._api_call(method='get', path='links/')
@@ -32,20 +33,21 @@ class Instamojo(object):
         response = self._api_call(method='get', path='links/%s/' % slug)
         return response
 
-    def link_create(self, title=None, # Title is not optional
-                     description=None, # Description is not optional
-                     base_price=None,
-                     currency=None, # Pricing, is compulsory.
-                     quantity=None, # Quantity
-                     start_date=None, end_date=None, venue=None, timezone=None, # Event
-                     redirect_url=None, # Redirect user to URL after successful payment
-                     webhook_url=None, # Ping your server with link data after successful payment
-                     note=None, # Show note, embed in receipt after successful payment
-                     upload_file=None, # File to upload
-                     cover_image=None, # Cover image to associate with link
-                     enable_pwyw=None,  # Enable Pay What You Want
-                     enable_sign=None,  # Enable Link Signing
-                     ):
+    def link_create(self, title=None,  # Title is not optional
+                    description=None,  # Description is not optional
+                    base_price=None,
+                    currency=None,  # Pricing, is compulsory.
+                    quantity=None,  # Quantity
+                    start_date=None, end_date=None, venue=None,  # Event
+                    timezone=None,
+                    redirect_url=None,  # Redirect user to URL after successful payment
+                    webhook_url=None,  # Ping your server with link data after successful payment
+                    note=None,  # Show note, embed in receipt after successful payment
+                    upload_file=None,  # File to upload
+                    cover_image=None,  # Cover image to associate with link
+                    enable_pwyw=None,  # Enable Pay What You Want
+                    enable_sign=None,  # Enable Link Signing
+                    ):
 
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
@@ -71,16 +73,16 @@ class Instamojo(object):
         response = self._api_call(method='post', path='links/', **link_data)
         return response
 
-    def link_edit(self, slug, # Need slug to identify link
-                  title=None, description=None, # Basic
-                  base_price=None, currency=None, # Pricing
-                  quantity=None, # Quantity
-                  start_date=None, end_date=None, venue=None, timezone=None, # Event
-                  redirect_url=None, # Redirect user to URL after successful payment
-                  webhook_url=None, # Ping your server with link data after successful payment
-                  note=None, # Show note, embed in receipt after successful payment
-                  upload_file=None, # File to upload
-                  cover_image=None, # Cover image to associate with link
+    def link_edit(self, slug,  # Need slug to identify link
+                  title=None, description=None,  # Basic
+                  base_price=None, currency=None,  # Pricing
+                  quantity=None,  # Quantity
+                  start_date=None, end_date=None, venue=None, timezone=None,  # Event
+                  redirect_url=None,  # Redirect user to URL after successful payment
+                  webhook_url=None,  # Ping your server with link data after successful payment
+                  note=None,  # Show note, embed in receipt after successful payment
+                  upload_file=None,  # File to upload
+                  cover_image=None,  # Cover image to associate with link
                   enable_pwyw=None,  # Enable Pay What You Want
                   enable_sign=None,  # Enable Link Signing
                   ):
@@ -121,14 +123,13 @@ class Instamojo(object):
         response = self._api_call(method='get', path='payments/%s/' % payment_id)
         return response
 
-
     def _api_call(self, method, path, **kwargs):
         # Header: App-Id
         headers = {'X-Api-Key': self.api_key}
 
         # If available, add the Auth-token to header
         if self.auth_token:
-            headers.update({'X-Auth-Token':self.auth_token})
+            headers.update({'X-Auth-Token': self.auth_token})
 
         # Build the URL for API call
         api_path = self.endpoint + path
@@ -160,7 +161,7 @@ class Instamojo(object):
         file_upload_url = self._get_file_upload_url()['upload_url']
 
         filename = os.path.basename(filepath)
-        files = {'fileUpload':(filename, open(filepath, 'rb'))}
+        files = {'fileUpload': (filename, open(filepath, 'rb'))}
         response = requests.post(file_upload_url, files=files)
         return response.text
 
@@ -168,4 +169,4 @@ class Instamojo(object):
         """If a file is found, uploads it and returns json, else returns None"""
         if filepath:
             return self._upload_file(filepath)
-        return None # Doesn't harm being explicit.
+        return None  # Doesn't harm being explicit.
