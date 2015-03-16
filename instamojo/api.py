@@ -147,7 +147,7 @@ class Instamojo(object):
 
         try:
             return req.json()
-        except:
+        except (TypeError, ValueError):
             raise Exception('Unable to decode response. Expected JSON, got this: \n\n\n %s' % req.text)
 
     def _get_file_upload_url(self):
