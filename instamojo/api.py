@@ -2,7 +2,8 @@ import os
 import json
 import requests
 
-class Instamojo:
+
+class Instamojo(object):
     app_id = None
     token = None
     endpoint = None
@@ -71,18 +72,18 @@ class Instamojo:
         return response
 
     def link_edit(self, slug, # Need slug to identify link
-                     title=None, description=None, # Basic
-                     base_price=None, currency=None, # Pricing
-                     quantity=None, # Quantity
-                     start_date=None, end_date=None, venue=None, timezone=None, # Event
-                     redirect_url=None, # Redirect user to URL after successful payment
-                     webhook_url=None, # Ping your server with link data after successful payment
-                     note=None, # Show note, embed in receipt after successful payment
-                     upload_file=None, # File to upload
-                     cover_image=None, # Cover image to associate with link
-                     enable_pwyw=None,  # Enable Pay What You Want
-                     enable_sign=None,  # Enable Link Signing
-                     ):
+                  title=None, description=None, # Basic
+                  base_price=None, currency=None, # Pricing
+                  quantity=None, # Quantity
+                  start_date=None, end_date=None, venue=None, timezone=None, # Event
+                  redirect_url=None, # Redirect user to URL after successful payment
+                  webhook_url=None, # Ping your server with link data after successful payment
+                  note=None, # Show note, embed in receipt after successful payment
+                  upload_file=None, # File to upload
+                  cover_image=None, # Cover image to associate with link
+                  enable_pwyw=None,  # Enable Pay What You Want
+                  enable_sign=None,  # Enable Link Signing
+                  ):
         """Only include the parameters that you wish to change."""
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
