@@ -47,6 +47,7 @@ class Instamojo(object):
                     cover_image=None,  # Cover image to associate with link
                     enable_pwyw=None,  # Enable Pay What You Want
                     enable_sign=None,  # Enable Link Signing
+                    socialpay_platforms=None,  # Choose platforms (twitter,facebook,linkedin)
                     ):
 
         file_upload_json = self._upload_if_needed(upload_file)
@@ -68,7 +69,8 @@ class Instamojo(object):
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
             enable_pwyw=enable_pwyw,
-            enable_sign=enable_sign
+            enable_sign=enable_sign,
+            socialpay_platforms=socialpay_platforms,
         )
         response = self._api_call(method='post', path='links/', **link_data)
         return response
@@ -85,6 +87,7 @@ class Instamojo(object):
                   cover_image=None,  # Cover image to associate with link
                   enable_pwyw=None,  # Enable Pay What You Want
                   enable_sign=None,  # Enable Link Signing
+                  socialpay_platforms=None,  # Choose platforms (twitter,facebook,linkedin)
                   ):
         """Only include the parameters that you wish to change."""
         file_upload_json = self._upload_if_needed(upload_file)
@@ -106,7 +109,8 @@ class Instamojo(object):
             file_upload_json=file_upload_json,
             cover_image_json=cover_image_json,
             enable_pwyw=enable_pwyw,
-            enable_sign=enable_sign
+            enable_sign=enable_sign,
+            socialpay_platforms=socialpay_platforms,
         )
         response = self._api_call(method='patch', path='links/%s/' % slug, **link_data)
         return response
