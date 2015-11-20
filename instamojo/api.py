@@ -312,6 +312,9 @@ class Instamojo(object):
             then this request will return all the payment requests made on and after 2015-07-02 and
             before and on 2015-07-10.
 
+            Details related to support datetime formats can be found in the documentation:
+            https://www.instamojo.com/developers/request-a-payment-api/#toc-filtering-payment-requests
+
         Returns
         _______
         dict
