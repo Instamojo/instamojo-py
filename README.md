@@ -147,7 +147,7 @@ For details related to supported datetime format supported by these arguments ch
 
 ## Available Request a Payment Functions
 
- * `payment_request_create(title, description, base_price, currency)` => Payment Request
+ * `payment_request_create(purpose, amount)` => Payment Request
  * `payment_request_status(id)` => Payment Request
  * `payment_request_list()` => List of Payment Requests
 
