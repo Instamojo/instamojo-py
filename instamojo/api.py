@@ -1,5 +1,9 @@
 import os
 import requests
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 
 class Instamojo(object):
@@ -174,3 +178,172 @@ class Instamojo(object):
         if filepath:
             return self._upload_file(filepath)
         return None  # Doesn't harm being explicit.
+
+    ###### Request a Payment ######
+
+    def payment_request_create(
+        self,
+        purpose,
+        amount,
+        buyer_name=None,
+        email=None,
+        phone=None,
+        send_email=False,
+        send_sms=False,
+        redirect_url=None,
+        webhook=None,
+        allow_repeated_payments=True
+       ):
+        """
+        Create a Payment Request
+
+        Parameters
+        __________
+        purpose : str
+            Purpose of the payment.
+        amount : str
+            Amount to be paid.
+        buyer_name : str, optional
+            Name of the buyer, can be used for prefilling the form.
+        email : str, optional
+            Email of the payer.
+        phone : str, optional
+            Phone number of payer.
+        send_email : bool, optional
+            Set this to True if you want to send email to the payer if email is specified.
+            If email is not specified then an error is raised(default value: False)
+        send_sms : bool, optional
+            Set this to True if you want to send SMS to the payer if phone is specified.
+            If phone is not specified then an error is raised. (default value: False)
+        redirect_url : str, optional
+            Set this to a thank-you or sorry page on your site.
+            Buyers will be redirected here after successfulor failed payment.
+        webhook : str, optional
+            Set this to a URL that can accept POST requests made by Instamojo server
+            after successful or failed payment.
+        allow_repeated_payments : bool, optional
+            To disallow multiple successful payments on a Payment Request pass false for this field.
+            If this is set to false then the link is not accessible publicly after first successful
+            payment, though you can still access it using API(default value: True).
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'payment_request': {'id': '...', ...}
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+        payment_request_data = dict(
+            purpose=purpose,
+            amount=amount,
+            buyer_name=buyer_name,
+            email=email,
+            phone=phone,
+            send_email=send_email,
+            send_sms=send_sms,
+            redirect_url=redirect_url,
+            webhook=webhook,
+            allow_repeated_payments=allow_repeated_payments
+        )
+        response = self._api_call(method='post', path='payment-requests/', **payment_request_data)
+        return response
+
+    def payment_request_status(self, id):
+        """
+        Get the status or details of a payment request.
+
+        Parameters
+        __________
+        id : str
+            The unique ID of a payment request, this is the 'id' key returned by
+            `payment_request_create()` request. The 'id' key is under 
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'payment_request': {'id': '...',
+                                                                    'payments': [...],
+                                                                    ...
+                                                                   }
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+            If the request is successful then the 'payment_request' dict will now also
+            contain an additional key named 'payments'. That's a list contain payments related
+            to this payment request.
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+        path = 'payment-requests/{id}/'.format(id=id)
+        response = self._api_call(method='get', path=path)
+        return response
+
+    def payment_requests_list(
+        self,
+        min_created_at=None,
+        max_created_at=None,
+        min_modified_at=None,
+        max_modified_at=None,
+       ):
+        """
+        Get a list of all Payment requests.
+
+        Parameters
+        __________
+        min_created_at, max_created_at, min_modified_at, max_modified_at: str, optional
+            These optional arguments can be used to filter the list of payments by their
+            'created_at' and 'modified_at' keys.
+
+            For example if you pass min_created_at = '2015-07-02' and max_created_at = '2015-07-10'
+            then this request will return all the payment requests made on and after 2015-07-02 and
+            before and on 2015-07-10.
+
+            Details related to support datetime formats can be found in the documentation:
+            https://www.instamojo.com/developers/request-a-payment-api/#toc-filtering-payment-requests
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'payment_requests': [{'id': '...', ...},
+                                                                     {'id': '...', ...}]
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+            Note that the 'payments' related to individual Payment Request is not
+            returned by this request.
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+        path = 'payment-requests/'
+        query_dict = dict(
+            min_created_at=min_created_at,
+            max_created_at=max_created_at,
+            min_modified_at=min_modified_at,
+            max_modified_at=max_modified_at,
+        )
+        query_string = urlencode({k: v for k, v in query_dict.items() if v is not None})
+        if query_string:
+            path += '?' + query_string
+        response = self._api_call(method='get', path=path)
+        return response
+
