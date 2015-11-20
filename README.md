@@ -138,7 +138,7 @@ Further documentation is available at https://www.instamojo.com/developers/
     for payment_request in response['payment_requests']:
         print payment_request['status']
 
-`payment_request_list()` also accepts an optional arguments like `max_created_at`, `min_created_at`, `min_modified_at` and `max_modified_at` for filtering the list of Payment Requests. Note that it is not required to pass all of them
+`payment_request_list()` also accepts optional arguments like `max_created_at`, `min_created_at`, `min_modified_at` and `max_modified_at` for filtering the list of Payment Requests. Note that it is not required to pass all of them.
 
     response = api.payment_request_list(max_created_at="2015-11-19T10:12:19Z",
                                         min_created_at="2015-10-29T12:51:36Z")
