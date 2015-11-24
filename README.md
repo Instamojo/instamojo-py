@@ -27,8 +27,7 @@ https://www.instamojo.com/api/1.1/docs/
     # Create a new Link
     response = api.link_create(title='Hello, world!',
                                description='Well, hello again.',
-                               base_price=0,
-                               currency='INR')
+                               base_price=0)
 
     # Display the URL of the newly created Link
     print response['link']
@@ -48,7 +47,7 @@ You have these functions to interact with the API:
  * `auth(username, password)`
  * `links_list()` => list of Links
  * `link_detail(slug)` => Link
- * `link_create(title, description, base_price, currency)` => Link
+ * `link_create(title, description, base_price)` => Link
  * `link_edit(slug)` => Link
  * `link_delete(slug)` => No Data
  * `payments_list()` => List of Payments
@@ -61,7 +60,6 @@ You have these functions to interact with the API:
   * `title` - Title of the Link, be concise.
   * `description` - Describe what your customers will get, you can add terms and conditions and any other relevant information here. Markdown is supported, popular media URLs like Youtube, Flickr are auto-embedded.
   * `base_price` - Price of the Link. This may be 0, if you want to offer it for free.
-  * `currency` - Currency options are `INR` and `USD`. Note that you need to have a Bank Account in USA to accept USD currencies.
 
 ### File and Cover Image
   * `file_upload` - Full path to the file you want to sell. This file will be available only after successful payment.
