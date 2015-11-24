@@ -40,7 +40,7 @@ class Instamojo(object):
     def link_create(self, title=None,  # Title is not optional
                     description=None,  # Description is not optional
                     base_price=None,
-                    currency=None,  # Pricing, is compulsory.
+                    currency='INR',
                     quantity=None,  # Quantity
                     start_date=None, end_date=None, venue=None,  # Event
                     timezone=None,
