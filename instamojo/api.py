@@ -48,12 +48,15 @@ class Instamojo(object):
                     webhook_url=None,  # Ping your server with link data after successful payment
                     note=None,  # Show note, embed in receipt after successful payment
                     upload_file=None,  # File to upload
+                    file_upload=None,  # File to upload (correct param as per documentation)
                     cover_image=None,  # Cover image to associate with link
                     enable_pwyw=None,  # Enable Pay What You Want
                     enable_sign=None,  # Enable Link Signing
                     socialpay_platforms=None,  # Choose platforms (twitter,facebook,linkedin)
                     ):
 
+        if file_upload:
+            upload_file = file_upload
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
 
@@ -88,12 +91,15 @@ class Instamojo(object):
                   webhook_url=None,  # Ping your server with link data after successful payment
                   note=None,  # Show note, embed in receipt after successful payment
                   upload_file=None,  # File to upload
+                  file_upload=None,  # File to upload (correct param as per documentation)
                   cover_image=None,  # Cover image to associate with link
                   enable_pwyw=None,  # Enable Pay What You Want
                   enable_sign=None,  # Enable Link Signing
                   socialpay_platforms=None,  # Choose platforms (twitter,facebook,linkedin)
                   ):
         """Only include the parameters that you wish to change."""
+        if file_upload:
+            upload_file = file_upload
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
 
