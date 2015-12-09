@@ -226,7 +226,7 @@ For details related to supported datetime format supported by these arguments ch
   * `payment_id`: Payment ID for which Refund is being requested.
   * `type`: A three letter short-code to identify the type of the refund. Check the
             REST docs for more info on the allowed values.
-  * `body`: Additional explanation related to the why you're initiating this refund.
+  * `body`: Additional explanation related to why this refund is being requested.
 
 ### Optional
   * `refund_amount`: This field can be used to specify the refund amount. For instance, you

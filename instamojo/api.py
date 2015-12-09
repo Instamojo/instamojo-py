@@ -368,7 +368,7 @@ class Instamojo(object):
             A three letter short-code to identify the type of the refund. Check the
             REST docs for more info on the allowed values.
         body : str
-            Additional explanation related to the why you're initiating this refund.
+            Additional explanation related to why this refund is being requested.
         refund_amount : str, optional
             This field can be used to specify the refund amount. For instance, you
             may want to issue a refund for an amount lesser than what was paid. If
