@@ -363,7 +363,7 @@ class Instamojo(object):
         Parameters
         __________
         payment_id : str
-            Payment ID of the transaction for which you're initiating refund.
+            Payment ID for which Refund is being requested.
         type : str
             A three letter short-code to identify the type of the refund. Check the
             REST docs for more info on the allowed values.
