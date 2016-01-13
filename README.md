@@ -85,11 +85,11 @@ You have these functions to interact with the API:
 
 ---
 
-## Request a Payment: [README!](RAP.md)
+## [Request a Payment!](RAP.md)
 
 ---
 
-## Refunds: [REAMDE!](REFUNDS.md)
+## [Refunds!](REFUNDS.md)
 
 ---
 
