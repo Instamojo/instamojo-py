@@ -40,7 +40,7 @@ class Instamojo(object):
     def link_create(self, title=None,  # Title is not optional
                     description=None,  # Description is not optional
                     base_price=None,
-                    currency=None,  # Pricing, is compulsory.
+                    currency='INR',
                     quantity=None,  # Quantity
                     start_date=None, end_date=None, venue=None,  # Event
                     timezone=None,
@@ -48,12 +48,15 @@ class Instamojo(object):
                     webhook_url=None,  # Ping your server with link data after successful payment
                     note=None,  # Show note, embed in receipt after successful payment
                     upload_file=None,  # File to upload
+                    file_upload=None,  # File to upload (correct param as per documentation)
                     cover_image=None,  # Cover image to associate with link
                     enable_pwyw=None,  # Enable Pay What You Want
                     enable_sign=None,  # Enable Link Signing
                     socialpay_platforms=None,  # Choose platforms (twitter,facebook,linkedin)
                     ):
 
+        if file_upload:
+            upload_file = file_upload
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
 
@@ -88,12 +91,15 @@ class Instamojo(object):
                   webhook_url=None,  # Ping your server with link data after successful payment
                   note=None,  # Show note, embed in receipt after successful payment
                   upload_file=None,  # File to upload
+                  file_upload=None,  # File to upload (correct param as per documentation)
                   cover_image=None,  # Cover image to associate with link
                   enable_pwyw=None,  # Enable Pay What You Want
                   enable_sign=None,  # Enable Link Signing
                   socialpay_platforms=None,  # Choose platforms (twitter,facebook,linkedin)
                   ):
         """Only include the parameters that you wish to change."""
+        if file_upload:
+            upload_file = file_upload
         file_upload_json = self._upload_if_needed(upload_file)
         cover_image_json = self._upload_if_needed(cover_image)
 
@@ -179,7 +185,7 @@ class Instamojo(object):
             return self._upload_file(filepath)
         return None  # Doesn't harm being explicit.
 
-    ###### Request a Payment ######
+    # ##### Request a Payment ######
 
     def payment_request_create(
         self,
@@ -193,7 +199,7 @@ class Instamojo(object):
         redirect_url=None,
         webhook=None,
         allow_repeated_payments=True
-       ):
+    ):
         """
         Create a Payment Request
 
@@ -264,7 +270,8 @@ class Instamojo(object):
         __________
         id : str
             The unique ID of a payment request, this is the 'id' key returned by
-            `payment_request_create()` request. The 'id' key is under 
+            `payment_request_create()` request. The 'id' key is inside the
+            'refund_create' dict.
 
         Returns
         _______
@@ -339,7 +346,7 @@ class Instamojo(object):
         max_created_at=None,
         min_modified_at=None,
         max_modified_at=None,
-       ):
+    ):
         """
         Get a list of all Payment requests.
 
@@ -388,3 +395,108 @@ class Instamojo(object):
         response = self._api_call(method='get', path=path)
         return response
 
+    # ##### Refunds ######
+
+    def refund_create(
+        self,
+        payment_id,
+        type,
+        body,
+        refund_amount=None
+    ):
+        """
+        Create a new Refund
+
+        Parameters
+        __________
+        payment_id : str
+            Payment ID for which Refund is being requested.
+        type : str
+            A three letter short-code to identify the type of the refund. Check the
+            REST docs for more info on the allowed values.
+        body : str
+            Additional explanation related to why this refund is being requested.
+        refund_amount : str, optional
+            This field can be used to specify the refund amount. For instance, you
+            may want to issue a refund for an amount lesser than what was paid. If
+            this field is not provided then the total transaction amount is going to
+            be used.
+
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'refund': {'id': '...', ...}
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+        refund_request_data = dict(
+            payment_id=payment_id,
+            type=type,
+            body=body
+        )
+        if refund_amount is not None:
+            refund_request_data['refund_amount'] = refund_amount
+
+        response = self._api_call(method='post', path='refunds/', **refund_request_data)
+        return response
+
+    def refund_detail(self, id):
+        """
+        Get details of a Refund.
+
+        Parameters
+        __________
+        id : str
+            The unique ID of a refund, this is the 'id' key returned by
+            `refund_create()` request. The 'id' key is inside the 'refund' dict.
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'refund': {'id': '...', ...}
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+        response = self._api_call(method='get', path='refunds/{id}/'.format(id=id))
+        return response
+
+    def refunds_list(self):
+        """
+        Get list of all Refunds.
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'refunds': [{'id': '...', ...},
+                                                           {'id': '...', ...}]
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+
+        response = self._api_call(method='get', path='refunds/')
+        return response
