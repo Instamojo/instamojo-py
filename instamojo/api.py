@@ -299,6 +299,47 @@ class Instamojo(object):
         response = self._api_call(method='get', path=path)
         return response
 
+    def payment_request_payment_status(self, id, payment_id):
+        """
+        Get the details of a payment related to payment request.
+
+        Parameters
+        __________
+        id : str
+            The unique ID of a payment request, this is the 'id' key returned by
+            `payment_request_create()` request. The 'id' key is inside the
+            'refund_create' dict.
+
+        payment_id : str
+            ID of a payment, this is the 'payment_id' key returned with the
+            redirection URL and/or webhook.
+
+        Returns
+        _______
+        dict
+            This will contain the response from Instamojo.
+            The two possible outputs are:
+                1. When request is successful: {'success': True,
+                                                'payment_request': {'id': '...',
+                                                                    'payment': {},
+                                                                    ...
+                                                                   }
+                                               }
+                2. When Request failed: {'success': False, 'message': '...'}
+
+            If the request is successful then the 'payment_request' dict will now also
+            contain an additional key named 'payment'. This dict contains the details
+            of the payment.
+
+        Raises
+        ______
+        Exception
+            If the request failed due to some reason, network error etc.
+        """
+        path = 'payment-requests/{id}/{payment_id}/'.format(id=id, payment_id=payment_id)
+        response = self._api_call(method='get', path=path)
+        return response
+
     def payment_requests_list(
         self,
         min_created_at=None,
