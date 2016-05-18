@@ -16,8 +16,8 @@ https://www.instamojo.com/api/1.1/docs/
 ## Usage
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Get a list of all Links that you have created and display their slugs.
     response = api.links_list()

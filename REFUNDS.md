@@ -3,8 +3,8 @@
 ### Create a new Refund
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Refund
     response = api.refund_create(
@@ -20,11 +20,11 @@
 ### Get the details of a Refund
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
-    response = api.refund_detail('[REFUND ID]')
+    response = api.refund_detail(REFUND_ID)
 
     print response['refund']['status']  # Get the status
 
@@ -32,8 +32,8 @@
 ### Get a list of all Refunds
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
     response = api.refunds_list()

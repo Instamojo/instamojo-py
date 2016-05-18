@@ -3,8 +3,8 @@
 ### Create a new Payment Request
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
     response = api.payment_request_create(
@@ -22,8 +22,8 @@
 ### Get the status or details of a Payment Request
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
     response = api.payment_request_status('[PAYMENT REQUEST ID]')
@@ -36,8 +36,8 @@
 ### Get the status of a Payment related to a Payment Request
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
     response = api.payment_request_payment_status('[PAYMENT REQUEST ID]', '[PAYMENT ID]')
@@ -49,8 +49,8 @@
 ### Get a list of all Payment Requests
 
     from instamojo import Instamojo
-    api = Instamojo(api_key='[API_KEY]',
-                    auth_token='[AUTH_TOKEN]')
+    api = Instamojo(api_key=API_KEY,
+                    auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
     response = api.payment_request_list()
