@@ -13,7 +13,7 @@ run `python setup.py install` to install the library.
 
 You can find your API_KEY and AUTH_TOKEN at the API Documentation Page.
 Create an account on Instamojo, log in and visit this link:
-https://www.instamojo.com/api/1.1/docs/
+https://www.instamojo.com/developers/
 
 ## Usage
 
