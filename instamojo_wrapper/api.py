@@ -389,7 +389,7 @@ class Instamojo(object):
             min_modified_at=min_modified_at,
             max_modified_at=max_modified_at,
         )
-        query_string = urlencode({k: v for k, v in query_dict.items() if v is not None})
+        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
         if query_string:
             path += '?' + query_string
         response = self._api_call(method='get', path=path)
