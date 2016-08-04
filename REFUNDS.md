@@ -6,7 +6,7 @@
 
 ### Create a new Refund
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -23,7 +23,7 @@
 
 ### Get the details of a Refund
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -35,7 +35,7 @@
 
 ### Get a list of all Refunds
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 

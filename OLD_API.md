@@ -8,7 +8,7 @@ Assists you to programmatically create, edit and delete links on Instamojo.
 
 ## Usage
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -29,7 +29,7 @@ This will give you JSON object containing details of the link that was just crea
 
 ## Payments API and Webhook/Redirect
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key, token_auth)
     payment = api.payment_detail(payment_id='PAYMENT ID YOU GOT FROM WEBHOOK OR REDIRECT')
 
