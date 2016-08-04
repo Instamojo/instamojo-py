@@ -2,3 +2,5 @@
 *.swp
 .idea
 test.py
+dist/
+*.egg-info/
