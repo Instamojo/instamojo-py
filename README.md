@@ -19,7 +19,7 @@ https://www.instamojo.com/developers/
 
 ### Create a new Payment Request
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -38,7 +38,7 @@ https://www.instamojo.com/developers/
 
 ### Get the status or details of a Payment Request
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -52,7 +52,7 @@ https://www.instamojo.com/developers/
 
 ### Get the status of a Payment related to a Payment Request
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -65,7 +65,7 @@ https://www.instamojo.com/developers/
 
 ### Get a list of all Payment Requests
 
-    from instamojo import Instamojo
+    from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
                     auth_token=AUTH_TOKEN)
 
@@ -106,4 +106,4 @@ For details related to supported datetime format supported by these arguments ch
   * `webhook`: set this to a URL that can accept POST requests made by Instamojo server after successful payment.
   * `allow_repeated_payments`: To disallow multiple successful payments on a Payment Request pass `false` for this field. If this is set to `false` then the link is not accessible publicly after first successful payment, though you can still access it using API(default value: `True`).
 
-Further documentation is available at instamojo.com/developers/request-a-payment-api/
+Further documentation is available at https://www.instamojo.com/developers/request-a-payment-api/

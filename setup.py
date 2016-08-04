@@ -1,47 +1,58 @@
 #!/usr/bin/env python
 
-import os
-import sys
-
-import instamojo
+import ast
+import re
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist upload')
-    sys.exit()
 
-packages = [
-    'instamojo',
-]
+def generate_long_description():
+    with open('README.md') as f:
+        long_description = f.read()
+        try:
+            import pypandoc
+            long_description = pypandoc.convert_text(
+                long_description, 'rst', format='md')
+        except ImportError:
+            pass
+        return long_description
 
-requires = ['requests']
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+with open('instamojo_wrapper/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')).group(1)))
 
 setup(
-    name='instamojo',
-    version=instamojo.__version__,
-    description='Instamojo API Wrapper.',
-    long_description=open('README.md').read(),
+    name='instamojo_wrapper',
+    packages=['instamojo_wrapper'],
+    version=version,
+    description='Instamojo API 1.1 Wrapper',
+    long_description=generate_long_description(),
     author='Instamojo Developers',
-    author_email='dev@instamojo.com',
-    url='https://www.instamojo.com/developers/',
-    packages=packages,
-    package_data={'': ['LICENSE']},
-    package_dir={'instamojo': 'instamojo'},
+    author_email='support@instamojo.com',
+    url='http://github.com/Instamojo/instamojo-py',
+    keywords=['instamojo', 'api', 'wrapper', '1.1'],
+    install_requires=['requests'],
     include_package_data=True,
-    install_requires=requires,
-    license=open('LICENSE').read(),
-    zip_safe=False,
+    license="MIT",
     classifiers=(
-        'Development Status :: 3 - Alpha',
+        "Development Status :: 4 - Beta",
         'Intended Audience :: Developers',
         'Natural Language :: English',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
+        "Operating System :: OS Independent",
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.2",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Topic :: Software Development :: Libraries :: Python Modules",
     ),
 )
