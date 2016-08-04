@@ -6,8 +6,7 @@
 
 ## Installation
 
-[Download the source code](https://github.com/Instamojo/instamojo-py/archive/master.zip),
-run `python setup.py install` to install the library.
+`pip install instamojo_wrapper`
 
 ## Authentication Keys
 
