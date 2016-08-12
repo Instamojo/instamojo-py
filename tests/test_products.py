@@ -4,10 +4,10 @@ import responses
 from mock import mock_open, patch
 
 from instamojo_wrapper import Instamojo
-from .products_payload import products_payload
+from tests.payloads.products import products_payload
 
 
-class TestProducts(TestCase):
+class Testproducts_payload(TestCase):
     def setUp(self):
         self.api_endpoint = 'https://www.instamojo.com/api/1.1/'
         self.api = Instamojo('API-KEY', 'AUTH-TOKEN', self.api_endpoint)
@@ -235,7 +235,7 @@ class TestProducts(TestCase):
         self.assertEqual(responses.calls[0].request.url, endpoint)
 
     @responses.activate
-    def test_products_list(self):
+    def test_products_payload_list(self):
         data = products_payload['products_list']
         endpoint = self.api_endpoint + 'links/'
         responses.add(
@@ -248,4 +248,3 @@ class TestProducts(TestCase):
         self.assertEqual(resp, {})
         self.assertEqual(len(responses.calls), 1)
         self.assertEqual(responses.calls[0].request.url, endpoint)
-
