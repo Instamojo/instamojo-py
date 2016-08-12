@@ -200,11 +200,9 @@ class TestProducts(TestCase):
             endpoint,
             body=exception
         )
-        with self.assertRaises(Exception) as context:
-            self.api.link_delete(**data['request'])
-            self.assertEqual(len(responses.calls), 1)
-            self.assertEqual(responses.calls[0].request.url, endpoint)
-            self.assertTrue('Unable to decode response. Expected JSON, got this:' in context.exception)
+        self.assertRaises(type(exception), self.api.link_delete, **data['request'])
+        self.assertEqual(len(responses.calls), 1)
+        self.assertEqual(responses.calls[0].request.url, endpoint)
 
     @responses.activate
     def test_product_details(self):
