@@ -3,7 +3,7 @@ from unittest import TestCase
 import responses
 
 from instamojo_wrapper import Instamojo
-from tests.payloads.refunds import refunds_payload
+from tests.payloads import refunds_payload
 
 
 class TestPaymentRequests(TestCase):
@@ -58,5 +58,3 @@ class TestPaymentRequests(TestCase):
         self.assertEqual(len(responses.calls), 1)
         self.assertEqual(
             responses.calls[0].request.url, endpoint)
-
-

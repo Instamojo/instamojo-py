@@ -8,8 +8,8 @@ payment_requests_payload = {
             'phone': '+919999999990',
             'send_email': True,
             'send_sms': True,
-            'redirect_url': 'https://www.instamojo.com/redirect_handler',
-            'webhook': 'https://www.instamojo.com/webhook_handler',
+            'redirect_url': 'https://www.instamojo.com/redirect-handler',
+            'webhook': 'https://www.instamojo.com/webhook-handler',
             'allow_repeated_payments': 'allow_repeated_payments'
         }
     },
@@ -20,6 +20,14 @@ payment_requests_payload = {
     },
     'payment_requests_list': {
         'request': {}
+    },
+    'payment_requests_list_optional_params': {
+        'request': {
+            'min_created_at': '2016-08-10T13:23:20Z',
+            'max_created_at': '2016-08-12T13:23:20Z',
+            'min_modified_at': '2016-08-10T13:23:20Z',
+            'max_modified_at': '2016-08-12T13:23:20Z'
+        }
     },
     'payment_request_payment_status': {
         'request': {
