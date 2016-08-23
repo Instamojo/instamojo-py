@@ -1,4 +1,4 @@
-from unittest import TestCase
+from . import BaseTestClass
 
 import responses
 
@@ -6,7 +6,7 @@ from instamojo_wrapper import Instamojo
 from tests.payloads import refunds_payload
 
 
-class TestPaymentRequests(TestCase):
+class TestPaymentRequests(BaseTestClass):
     def setUp(self):
         self.api_endpoint = 'https://www.instamojo.com/api/1.1/'
         self.api = Instamojo('API-KEY', 'AUTH-TOKEN', self.api_endpoint)

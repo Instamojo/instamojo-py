@@ -1,4 +1,4 @@
-from unittest import TestCase
+from . import BaseTestClass
 
 import responses
 from mock import mock_open, patch
@@ -7,7 +7,7 @@ from instamojo_wrapper import Instamojo
 from tests.payloads import products_payload
 
 
-class Testproducts(TestCase):
+class Testproducts(BaseTestClass):
     def setUp(self):
         self.api_endpoint = 'https://www.instamojo.com/api/1.1/'
         self.api = Instamojo('API-KEY', 'AUTH-TOKEN', self.api_endpoint)

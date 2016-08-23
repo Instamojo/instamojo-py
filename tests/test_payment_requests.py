@@ -1,4 +1,4 @@
-from unittest import TestCase
+from . import BaseTestClass
 try:
     from urllib import urlencode
     from urlparse import parse_qsl, urlparse
@@ -11,7 +11,7 @@ from instamojo_wrapper import Instamojo
 from tests.payloads import payment_requests_payload
 
 
-class TestPaymentRequests(TestCase):
+class TestPaymentRequests(BaseTestClass):
     def setUp(self):
         self.api_endpoint = 'https://www.instamojo.com/api/1.1/'
         self.api = Instamojo('API-KEY', 'AUTH-TOKEN', self.api_endpoint)
