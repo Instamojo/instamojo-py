@@ -69,15 +69,15 @@ https://www.instamojo.com/developers/
                     auth_token=AUTH_TOKEN)
 
     # Create a new Payment Request
-    response = api.payment_request_list()
+    response = api.payment_requests_list()
 
     # Loop over all of the payment requests
     for payment_request in response['payment_requests']:
         print payment_request['status']
 
-`payment_request_list()` also accepts optional arguments like `max_created_at`, `min_created_at`, `min_modified_at` and `max_modified_at` for filtering the list of Payment Requests. Note that it is not required to pass all of them.
+`payment_requests_list()` also accepts optional arguments like `max_created_at`, `min_created_at`, `min_modified_at` and `max_modified_at` for filtering the list of Payment Requests. Note that it is not required to pass all of them.
 
-    response = api.payment_request_list(max_created_at="2015-11-19T10:12:19Z",
+    response = api.payment_requests_list(max_created_at="2015-11-19T10:12:19Z",
                                         min_created_at="2015-10-29T12:51:36Z")
 
 For details related to supported datetime format supported by these arguments check the documentation: https://www.instamojo.com/developers/request-a-payment-api/#toc-filtering-payment-requests
@@ -86,7 +86,7 @@ For details related to supported datetime format supported by these arguments ch
 
  * `payment_request_create(purpose, amount)` => Payment Request
  * `payment_request_status(id)` => Payment Request
- * `payment_request_list()` => List of Payment Requests
+ * `payment_requests_list()` => List of Payment Requests
  * `payment_request_payment_status(id, payment_id)` => Payment Request with Payment details
 
 ## Payment Request Creation Parameters
