@@ -29,8 +29,25 @@ class Instamojo(object):
         else:
             raise Exception(response['message'])  # TODO: set custom exception?
 
-    def links_list(self):
-        response = self._api_call(method='get', path='links/')
+    def links_list(
+            self,
+            limit=None,
+            page=None,
+    ):
+
+        path = 'links/'
+
+        query_dict = dict(
+            limit=limit,
+            page=page,
+        )
+
+        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
+        if query_string:
+            path += '?' + query_string
+
+        print(path)
+        response = self._api_call(method='get', path=path)
         return response
 
     def link_detail(self, slug):
@@ -129,8 +146,24 @@ class Instamojo(object):
         response = self._api_call(method='delete', path='links/%s/' % slug)
         return response
 
-    def payments_list(self):
-        response = self._api_call(method='get', path='payments/')
+    def payments_list(
+            self,
+            limit=None,
+            page=None,
+    ):
+        path = 'payments/'
+
+        query_dict = dict(
+            limit=limit,
+            page=page,
+        )
+
+        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
+        if query_string:
+            path += '?' + query_string
+
+        print(path)
+        response = self._api_call(method='get', path=path)
         return response
 
     def payment_detail(self, payment_id):
@@ -346,6 +379,8 @@ class Instamojo(object):
         max_created_at=None,
         min_modified_at=None,
         max_modified_at=None,
+        limit=None,
+        page=None,
     ):
         """
         Get a list of all Payment requests.
@@ -388,11 +423,14 @@ class Instamojo(object):
             max_created_at=max_created_at,
             min_modified_at=min_modified_at,
             max_modified_at=max_modified_at,
+            limit=limit,
+            page=page,
         )
         query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
         if query_string:
             path += '?' + query_string
         response = self._api_call(method='get', path=path)
+        print(path)
         return response
 
     # ##### Refunds ######
@@ -477,7 +515,11 @@ class Instamojo(object):
         response = self._api_call(method='get', path='refunds/{id}/'.format(id=id))
         return response
 
-    def refunds_list(self):
+    def refunds_list(
+            self,
+            limit=None,
+            page=None,
+    ):
         """
         Get list of all Refunds.
 
@@ -497,6 +539,17 @@ class Instamojo(object):
         Exception
             If the request failed due to some reason, network error etc.
         """
+        path = 'refunds/'
 
-        response = self._api_call(method='get', path='refunds/')
+        query_dict = dict(
+            limit=limit,
+            page=page,
+        )
+
+        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
+        if query_string:
+            path += '?' + query_string
+
+        print(path)
+        response = self._api_call(method='get', path=path)
         return response
