@@ -28,6 +28,12 @@ class Instamojo(object):
             return self.auth_token
         else:
             raise Exception(response['message'])  # TODO: set custom exception?
+    
+    def get_path(self , query_dict , path ):
+        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
+        if query_string:
+            path += '?' + query_string
+        return path
 
     def links_list(
             self,
@@ -35,16 +41,12 @@ class Instamojo(object):
             page=None,
     ):
 
-        path = 'links/'
-
         query_dict = dict(
             limit=limit,
             page=page,
         )
 
-        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
-        if query_string:
-            path += '?' + query_string
+        path = self.get_path(query_dict , 'links/')
 
         response = self._api_call(method='get', path=path)
         return response
@@ -150,16 +152,13 @@ class Instamojo(object):
             limit=None,
             page=None,
     ):
-        path = 'payments/'
 
         query_dict = dict(
             limit=limit,
             page=page,
         )
 
-        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
-        if query_string:
-            path += '?' + query_string
+        path = self.get_path(query_dict , 'payments/')
 
         response = self._api_call(method='get', path=path)
         return response
@@ -415,7 +414,7 @@ class Instamojo(object):
         Exception
             If the request failed due to some reason, network error etc.
         """
-        path = 'payment-requests/'
+
         query_dict = dict(
             min_created_at=min_created_at,
             max_created_at=max_created_at,
@@ -424,9 +423,9 @@ class Instamojo(object):
             limit=limit,
             page=page,
         )
-        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
-        if query_string:
-            path += '?' + query_string
+
+        path = self.get_path(query_dict , 'payment-requests/')
+
         response = self._api_call(method='get', path=path)
         return response
 
@@ -536,16 +535,12 @@ class Instamojo(object):
         Exception
             If the request failed due to some reason, network error etc.
         """
-        path = 'refunds/'
 
         query_dict = dict(
             limit=limit,
             page=page,
         )
 
-        query_string = urlencode(dict((k, v) for k, v in query_dict.items() if v is not None))
-        if query_string:
-            path += '?' + query_string
-
+        path = self.get_path(query_dict , 'refunds/')
         response = self._api_call(method='get', path=path)
         return response
