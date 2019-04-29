@@ -46,7 +46,6 @@ class Instamojo(object):
         if query_string:
             path += '?' + query_string
 
-        print(path)
         response = self._api_call(method='get', path=path)
         return response
 
@@ -162,7 +161,6 @@ class Instamojo(object):
         if query_string:
             path += '?' + query_string
 
-        print(path)
         response = self._api_call(method='get', path=path)
         return response
 
@@ -430,7 +428,6 @@ class Instamojo(object):
         if query_string:
             path += '?' + query_string
         response = self._api_call(method='get', path=path)
-        print(path)
         return response
 
     # ##### Refunds ######
@@ -550,6 +547,5 @@ class Instamojo(object):
         if query_string:
             path += '?' + query_string
 
-        print(path)
         response = self._api_call(method='get', path=path)
         return response
