@@ -27,18 +27,20 @@ with open('instamojo_wrapper/__init__.py', 'rb') as f:
         f.read().decode('utf-8')).group(1)))
 
 setup(
-    name='instamojo_wrapper',
-    packages=['instamojo_wrapper'],
+    name="instamojo_wrapper",
     version=version,
-    description='Instamojo API 1.1 Wrapper',
+    description="Instamojo API 1.2 Wrapper",
     long_description=generate_long_description(),
-    author='Instamojo Developers',
-    author_email='support@instamojo.com',
-    url='http://github.com/Instamojo/instamojo-py',
-    keywords=['instamojo', 'api', 'wrapper', '1.1'],
-    install_requires=['requests'],
-    include_package_data=True,
+    author="Instamojo Developers",
+    author_email="support@instamojo.com",
     license="MIT",
+    url="http://github.com/Instamojo/instamojo-py",
+    keywords=["instamojo", "api", "wrapper", "1.2"],
+    include_package_data=True,
+    packages=["instamojo_wrapper"],
+    install_requires=[
+        "requests",
+    ],
     classifiers=(
         "Development Status :: 4 - Beta",
         'Intended Audience :: Developers',
