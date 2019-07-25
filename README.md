@@ -78,7 +78,7 @@ https://www.instamojo.com/developers/
 `payment_requests_list()` also accepts *optional* arguments like `max_created_at`, `min_created_at`, `min_modified_at`, `max_modified_at`, `page` and `limit` for filtering as well as paginating the reponse.
 
     response = api.payment_requests_list(max_created_at="2015-11-19T10:12:19Z",
-                                        min_created_at="2015-10-29T12:51:36Z")
+                                        min_created_at="2015-10-29T12:51:36Z", page=1, limit=50)
 
 For details related to supported datetime format supported by these arguments check the documentation: https://www.instamojo.com/developers/request-a-payment-api/#toc-filtering-payment-requests
 
