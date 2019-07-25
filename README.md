@@ -62,7 +62,7 @@ https://www.instamojo.com/developers/
     print response['payment_request']['payment']['status']   # Payment status
 
 
-### Get a list of all Payment Requests
+### Get a list of Payment Requests
 
     from instamojo_wrapper import Instamojo
     api = Instamojo(api_key=API_KEY,
@@ -75,7 +75,7 @@ https://www.instamojo.com/developers/
     for payment_request in response['payment_requests']:
         print payment_request['status']
 
-`payment_requests_list()` also accepts optional arguments like `max_created_at`, `min_created_at`, `min_modified_at` and `max_modified_at` for filtering the list of Payment Requests. Note that it is not required to pass all of them.
+`payment_requests_list()` also accepts *optional* arguments like `max_created_at`, `min_created_at`, `min_modified_at`, `max_modified_at`, `page` and `limit` for filtering as well as paginating the reponse.
 
     response = api.payment_requests_list(max_created_at="2015-11-19T10:12:19Z",
                                         min_created_at="2015-10-29T12:51:36Z")
